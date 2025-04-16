@@ -1,0 +1,40 @@
+import cv2
+import numpy as np
+from tkinter import Tk, filedialog, Button, Label, Canvas, PhotoImage
+from PIL import Image, ImageTk
+def load_image():
+    global img, img_display
+    filepath = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.jpeg;*.png;*.bmp")])
+    if filepath:
+        img = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+        display_image(img, "Original Image")
+        
+def equalize_histogram():
+    global img
+    if img is None:
+        return
+    equalized_img = cv2.equalizeHist(img)
+    display_image(equalized_img, "Equalized Image")
+def display_image(image, title):
+    global img_display, canvas
+    if len(image.shape) == 2:  
+        image = Image.fromarray(image)
+    else:  
+        image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+    image.thumbnail((400, 400))
+    img_display = ImageTk.PhotoImage(image)
+    canvas.create_image(200, 200, image=img_display)
+    canvas.create_text(200, 380, text=title, fill="gray", font=("Arial", 14))
+root = Tk()
+root.title("Histogram Equalization")
+root.geometry("500x500")
+root.configure(bg="black")
+img = None
+img_display = None
+canvas = Canvas(root, width=400, height=400, bg="black")
+canvas.pack(pady=10)
+load_button = Button(root, text="insert", command=load_image, bg="gray", fg="white", font=("Arial", 12))
+load_button.pack(pady=5)
+equalize_button = Button(root, text="change", command=equalize_histogram, bg="gray", fg="white", font=("Arial", 12))
+equalize_button.pack(pady=5)
+root.mainloop()
