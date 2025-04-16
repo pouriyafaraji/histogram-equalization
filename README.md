@@ -9,7 +9,6 @@ This is a simple Python GUI application for image processing that allows users t
 - View original and processed images side by side
 - Simple and lightweight GUI using Tkinter
 
-## 📸 Demo
 
 Here’s how the app works:
 
@@ -26,7 +25,7 @@ Here’s how the app works:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/histogram-equalization-app.git
-cd histogram-equalization-app
+git clone https://github.com/pouriyafaraji/histogram-equalization-app.git
+cd histogram-equalization
 
 2. Dont forget about installing pakages
